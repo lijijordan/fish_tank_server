@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fish.dao.PHDao;
 import com.fish.dao.TemperatureDao;
 
+/**
+ * 
+ * @author lijib
+ *
+ */
 @Controller
 @RequestMapping("/line")
 public class LineChartController {
