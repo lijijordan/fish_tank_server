@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,6 +22,8 @@ public class PHDao{
 	@Autowired
 	DataSource dataSource;
 	
+	Logger log = Logger.getLogger(PHDao.class);
+	
 	public PHDao() {
 		
 	}
@@ -32,6 +35,7 @@ public class PHDao{
 	public void save(float value){
 		JdbcTemplate template = new JdbcTemplate(dataSource);
 		String sql = "INSERT INTO `fisher`.`PH` (`value`, `time`) VALUES (?,?);";
+		log.debug(sql);
 		template.update(sql, new Object[]{value, new Date(System.currentTimeMillis())});
 	}
 	

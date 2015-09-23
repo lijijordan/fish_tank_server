@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,5 +46,14 @@ public class PHController {
 		return phDao.getPHs(new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(start).getTime() -  (1000 * 60 * 60 * 8)),
 				new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(end).getTime()-  (1000 * 60 * 60 * 8)));
 	}
+	
+	@RequestMapping("/put")
+	public String put(@RequestParam(value="value", defaultValue="-1") String val){
+		if(!val.equals("-1")){
+			phDao.save(Float.valueOf(val));
+		}
+		return val;
+	}
+	
 	
 }

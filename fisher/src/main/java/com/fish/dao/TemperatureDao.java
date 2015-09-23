@@ -8,18 +8,19 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.fish.entity.PH;
 import com.fish.entity.Temperature;
 
 
 @Repository(value = "temperatureDao")
 public class TemperatureDao {
 
+	Logger log = Logger.getLogger(TemperatureDao.class);
 	
 	@Autowired
 	DataSource dataSource;
@@ -35,6 +36,7 @@ public class TemperatureDao {
 	public void save(float value){
 		JdbcTemplate template = new JdbcTemplate(dataSource);
 		String sql = "INSERT INTO `fisher`.`Temperature` (`value`, `time`) VALUES (?,?);";
+		log.debug(sql);
 		template.update(sql, new Object[]{value, new Date(System.currentTimeMillis())});
 	}
 	
