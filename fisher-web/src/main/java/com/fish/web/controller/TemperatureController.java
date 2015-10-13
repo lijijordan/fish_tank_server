@@ -1,6 +1,7 @@
 package com.fish.web.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,24 @@ public class TemperatureController {
 		return val;
 	}
 	
+	
+	/**
+	 * 获取最新的size条记录。
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Temperature> getTemps(int size){
+		return tempService.getTemps(size);
+	}
+	
+	/**
+	 * 获取当前温度
+	 * http://localhost:8080/fisher-web/temp/getCurrentTemp
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/getCurrentTemp", method = RequestMethod.GET)
 	@ResponseBody
 	public Temperature getCurrentTemp() throws ParseException{

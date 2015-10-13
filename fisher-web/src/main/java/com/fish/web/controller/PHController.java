@@ -36,11 +36,18 @@ public class PHController {
 	}
 	
 	
+	/**
+	 * 获取最新的size条记录。
+	 * @param size
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public List<PH> getPHs(int size){
 		return phDao.getPHs(size);
 	}
+	
+	
 	
 	@RequestMapping(value = "/getPHs", method = RequestMethod.GET)
 	@ResponseBody
@@ -51,6 +58,13 @@ public class PHController {
 				new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(end).getTime()-  (1000 * 60 * 60 * 8)));
 	}
 	
+	
+	/**
+	 * 获取当前PH
+	 * http://localhost:8080/fisher-web/ph/getCurrentPH
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/getCurrentPH", method = RequestMethod.GET)
 	@ResponseBody
 	public PH getCurrentPH() throws ParseException{

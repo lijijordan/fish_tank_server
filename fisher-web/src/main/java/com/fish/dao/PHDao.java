@@ -40,6 +40,9 @@ public class PHDao{
 		template.update(sql, new Object[]{value, new Date(System.currentTimeMillis())});
 	}
 	
+	
+	
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<PH> getPHs(int size){
 		List<PH> list = new ArrayList<PH>();
@@ -74,6 +77,8 @@ public class PHDao{
 		return list;
 	}
 
+	/**
+	 */
 	public PH getCurrentPH() {
 		PH ph = null;
 		JdbcTemplate template = new JdbcTemplate(dataSource);
