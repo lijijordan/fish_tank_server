@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -71,6 +72,22 @@ public class PHDao{
 			}
 		});
 		return list;
+	}
+
+	public PH getCurrentPH() {
+		PH ph = null;
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		String sql = "select value, time from ph order by time desc limit 1;";
+		ph = (PH) template.queryForObject(sql, new RowMapper<PH>(){
+			@Override
+			public PH mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PH ph = new PH();
+				ph.setValue(rs.getFloat(1));
+				ph.setDate(rs.getDate(2));
+				return ph;
+			}
+		});
+		return ph;
 	}
 	
 }

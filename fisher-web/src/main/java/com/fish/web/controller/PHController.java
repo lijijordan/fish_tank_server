@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fish.dao.PHDao;
 import com.fish.entity.PH;
+import com.fish.service.PHService;
 
 @Controller
 @RequestMapping("/ph")
@@ -24,6 +25,9 @@ public class PHController {
 
 	@Autowired
 	private PHDao phDao;
+	
+	@Autowired
+	private PHService phService;
 	
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public ModelAndView toBillList(HttpServletRequest request) {
@@ -38,7 +42,7 @@ public class PHController {
 		return phDao.getPHs(size);
 	}
 	
-	@RequestMapping(value = "/date", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPHs", method = RequestMethod.GET)
 	@ResponseBody
 	public List<PH> getPHs(String start, String end) throws ParseException{
 //		System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(start));
@@ -46,6 +50,16 @@ public class PHController {
 		return phDao.getPHs(new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(start).getTime() -  (1000 * 60 * 60 * 8)),
 				new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(end).getTime()-  (1000 * 60 * 60 * 8)));
 	}
+	
+	@RequestMapping(value = "/getCurrentPH", method = RequestMethod.GET)
+	@ResponseBody
+	public PH getCurrentPH() throws ParseException{
+		PH ph = this.phService.getCurrentPH();
+		System.out.println(ph.getValue());
+		return ph;
+	}
+	
+	
 	
 	@RequestMapping("/put")
 	public String put(@RequestParam(value="value", defaultValue="-1") String val){
