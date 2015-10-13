@@ -36,7 +36,7 @@ public class PHDaoTest extends TestCase{
 		}
 	}
 	
-	public void testDate(){
+	public void testDate(){/*
 		Date start = new Date(System.currentTimeMillis() - (1000 *  60 * 60 *24 ));
 		Date end = new Date(System.currentTimeMillis() );
 		System.out.println(start);
@@ -46,6 +46,6 @@ public class PHDaoTest extends TestCase{
 		for (PH ph : list) {
 			System.out.println(ph.getValue() + "     " + ph.getDate());
 		}
-	}
+	*/}
 	
 }
