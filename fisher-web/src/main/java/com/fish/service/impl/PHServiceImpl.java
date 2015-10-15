@@ -1,5 +1,7 @@
 package com.fish.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,12 @@ public class PHServiceImpl implements PHService{
 	@Override
 	public PH getCurrentPH() {
 		return phDao.getCurrentPH();
+	}
+
+
+	@Override
+	public List<PH> getPHs(int size) {
+		return phDao.getPHs(size);
 	}
 
 }
