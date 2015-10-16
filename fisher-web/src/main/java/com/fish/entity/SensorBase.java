@@ -9,6 +9,11 @@ public class SensorBase {
 	private float value;
 	
 	private Date date;
+	
+	/*
+	 * 小时（统计）
+	 */
+	private int hour;
 
 	public int getId() {
 		return id;
@@ -32,6 +37,14 @@ public class SensorBase {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
 	}
 	
 }

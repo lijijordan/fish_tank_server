@@ -95,4 +95,31 @@ public class PHDao{
 		return ph;
 	}
 	
+	/**
+	 * 按小时统计平均值
+	 * 如果start == null 或者 end == null 则统计所有的历史数据
+	 */
+	public PH getPHGroupByHours(Date start, Date end) {
+		PH ph = null;
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		String sql = "select min(value), DATE_FORMAT(time, '%k') from ph "
+				+ " where ph.time > ? and ph.time < ? "
+				+ " group by DATE_FORMAT(time, '%k') order by time desc";
+		
+		if(start == null || end == null){
+			sql = "select min(value), DATE_FORMAT(time, '%k') from ph "
+					+ " group by DATE_FORMAT(time, '%k') order by time desc";
+		}
+		ph = (PH) template.queryForObject(sql, new RowMapper<PH>(){
+			@Override
+			public PH mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PH ph = new PH();
+				ph.setValue(rs.getFloat(1));
+				ph.setHour(Integer.parseInt(rs.getString(2)));
+				return ph;
+			}
+		}, new Object[]{start, end});
+		return ph;
+	}
+	
 }
